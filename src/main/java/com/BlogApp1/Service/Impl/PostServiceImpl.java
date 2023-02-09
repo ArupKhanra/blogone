@@ -86,7 +86,7 @@ public class PostServiceImpl implements PostService {
     public PostResponse getAllPosts(int pageNo, int pageSize, String sortBy, String sortDir) {
         PostResponse postResponse = null;
         //Ascending and descending order data
-        Sort sort = sortDir.equalsIgnoreCase(Sort.Direction.ASC.name()) ? Sort.by(sortBy).ascending() : Sort.by(sortBy).descending();
+        Sort sort = sortDir.equalsIgnoreCase(Sort.Direction.ASC.name()) ? Sort.by(sortBy).ascending() : Sort.by(sortBy).ascending();
         //sort data
         Pageable pageable = PageRequest.of(pageNo, pageSize, sort);
         try{
@@ -110,7 +110,7 @@ public class PostServiceImpl implements PostService {
 
     @Override
     public PostDto getPostById(long id) {
-        Post post = postRepository.findById(id).orElseThrow(() -> new ResourceNotFoundException("post", "id", id));
+        Post post = postRepository.findById(id).orElseThrow(()-> new ResourceNotFoundException("post", "id", id));
 
         return mapToDto(post);
     }
