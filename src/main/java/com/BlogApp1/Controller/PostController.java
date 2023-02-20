@@ -40,25 +40,25 @@ public class PostController {
                                              BindingResult bindingResult) {
         if (bindingResult.hasErrors()) {
 
-           return new ResponseEntity<>(postService.createPost(postDto)
-                    , HttpStatus.CREATED);
-           // pre chek krte hbe// return new ResponseEntity<>(bindingResult.getFieldError().getDefaultMessage());
+           return new ResponseEntity<>(postService.createPost(postDto),HttpStatus.CREATED);
+           // pre check krte hbe// return new ResponseEntity<>(bindingResult.getFieldError().getDefaultMessage());
         }
         return new ResponseEntity<>(postService.createPost(postDto), HttpStatus.INTERNAL_SERVER_ERROR);
     }
 
-//    //gat data
+    //get data
+
 //    @GetMapping
 //    public PostResponse getAllPosts(
-//            //localhost:8080/api/posts?pageNo=2&pageSize=5 ai url dia pagination cheak postman
-//            ///pagenation table uesd
+//            //localhost:8080/api/posts?pageNo=2&pageSize=5 ai url dia pagination check postman
+//            ///pagination table used
 //            @RequestParam(value = "pageNo", defaultValue = AppConstants.DEFAULT_PAGE_NUMBER,
 //                    required = false) int pageNo,
 //            @RequestParam(value = "pageSize", defaultValue = AppConstants.DEFAULT_PAGE_SIZE,
 //                    required = false) int pageSize,
 //
 //            ///sort data
-//            ///	localhost:8080/api/posts?pageNo=2&pageSize=5&sortBy=title ai vabe cheak krte hbe
+//            ///	localhost:8080/api/posts?pageNo=2&pageSize=5&sortBy=title ai vabe check krte hbe
 //            @RequestParam(value = "sortBy", defaultValue = AppConstants.DEFAULT_SORT_BY,
 //                    required = false) String sortBy,
 //
@@ -70,11 +70,12 @@ public class PostController {
 //
 //    ) {
 //        return postService.getAllPosts(pageNo, pageSize, sortBy, sortDir);
-//    }
+//   }
+
     @GetMapping
     public PostResponse getAllPosts() {
 		return postService.getAllPosts(0, 0, null, null);
-    	
+
     }
  
 

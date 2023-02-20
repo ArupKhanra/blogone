@@ -85,22 +85,28 @@ public class PostServiceImpl implements PostService {
     @Override
     public PostResponse getAllPosts(int pageNo, int pageSize, String sortBy, String sortDir) {
         PostResponse postResponse = null;
-        //Ascending and descending order data
-        Sort sort = sortDir.equalsIgnoreCase(Sort.Direction.ASC.name()) ? Sort.by(sortBy).ascending() : Sort.by(sortBy).ascending();
-        //sort data
-        Pageable pageable = PageRequest.of(pageNo, pageSize, sort);
         try{
             postResponse = new PostResponse();
-            Page<Post> posts = postRepository.findAll(pageable);
-            List<Post> content = posts.getContent();
-            List<PostDto> contents = content.stream().map(this::mapToDto).collect(Collectors.toList());
+            if(sortBy == null && sortDir == null){
+                List<Post> posts = postRepository.findAll();
+                List<PostDto> allp = posts.stream().map(this::mapToDto).collect(Collectors.toList());
+                postResponse.setContent(allp);
+            }else{
+                //Ascending and descending order data
+                Sort sort = Sort.by(sortBy).ascending();
+                //sort data
+                Pageable pageable = PageRequest.of(pageNo, pageSize, sort);
+                Page<Post> posts = postRepository.findAll(pageable);
+                List<Post> content = posts.getContent();
+                List<PostDto> contents = content.stream().map(this::mapToDto).collect(Collectors.toList());
 
-            postResponse.setContent(contents);
-            postResponse.setPageNo(posts.getNumber());
-            postResponse.setPageSize(posts.getSize());
-            postResponse.setTotalPage(posts.getTotalPages());
-            postResponse.setTotalElements(posts.getTotalElements());
-            postResponse.setLast(posts.isLast());
+                postResponse.setContent(contents);
+                postResponse.setPageNo(posts.getNumber());
+                postResponse.setPageSize(posts.getSize());
+                postResponse.setTotalPage(posts.getTotalPages());
+                postResponse.setTotalElements(posts.getTotalElements());
+                postResponse.setLast(posts.isLast());
+            }
         }catch (Exception e){
             e.printStackTrace();
         }

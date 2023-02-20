@@ -19,10 +19,10 @@ public class PostDto {
 
 	private Long id;
 	@NotNull
-	@Size(min=2,message="Post title shoud have at least 2 charecters")
+	@Size(min=2,message="Post title should have at least 2 characters")
 	private String title;
 	@NotNull
-	@Size(min=10,message="Post description shoud have at least 10 charecters or more")
+	@Size(min=10,message="Post description should have at least 10 characters or more")
 	private String description;
 	@NotNull
 	private String content;
